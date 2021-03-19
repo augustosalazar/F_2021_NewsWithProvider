@@ -1,4 +1,6 @@
+import 'package:f_202110_provider_news_reader/provider/news_provider.dart';
 import 'package:f_202110_provider_news_reader/views/empy_view.dart';
+import 'package:f_202110_provider_news_reader/views/loaded_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +17,15 @@ class HomePage extends StatelessWidget {
             Image(image: AssetImage("assets/images/logo.png")),
             Container(
               height: 420,
-              child: EmptyNews(),
+              child: Consumer<NewsProvider>(
+                builder: (context, model, child) {
+                  if (model.news.isEmpty) {
+                    return EmptyNews();
+                  } else {
+                    return LoadedNews();
+                  }
+                },
+              ),
             ),
           ],
         ),
